@@ -50,7 +50,13 @@ def new_user():
         send_key(username, server)
     servers.close()
 
-
+@route('/servers', method='GET')
+def servers():
+    servers = open(config.SERVERS_PATH, 'r')
+    res = []
+    for server in servers:
+        res.insert(0, server.strip())
+    return '[%s]' % ', '.join(res)
 
 if __name__ == '__main__':
     app = bottle.app()
